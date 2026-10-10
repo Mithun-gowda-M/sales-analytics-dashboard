@@ -1,0 +1,124 @@
+/* ====================================================================
+   POWER BI DAX MEASURES SUITE - SALES ANALYTICS DASHBOARD
+   ==================================================================== */
+
+// --- 1. CORE VOLUME & REVENUE MEASURES ---
+
+Total Orders = 
+DISTINCTCOUNT('Sales_Fact'[OrderNumber])
+
+Total Quantity = 
+SUM('Sales_Fact'[Order Quantity])
+
+Total Revenue = 
+SUMX(
+    'Sales_Fact',
+    'Sales_Fact'[Order Quantity] * 'Sales_Fact'[Unit Price]
+)
+
+Total Cost = 
+SUMX(
+    'Sales_Fact',
+    'Sales_Fact'[Order Quantity] * 'Sales_Fact'[Total Unit Cost]
+)
+
+Total Profit = 
+[Total Revenue] - [Total Cost]
+
+Gross Profit Margin % = 
+DIVIDE([Total Profit], [Total Revenue], 0) * 100
+
+Average Order Value (AOV) = 
+DIVIDE([Total Revenue], [Total Orders], 0)
+
+Average Unit Price = 
+AVERAGE('Sales_Fact'[Unit Price])
+
+Average Unit Cost = 
+AVERAGE('Sales_Fact'[Total Unit Cost])
+
+
+// --- 2. LOGISTICS & WAREHOUSE EFFICIENCY ---
+
+Fulfillment Lead Time (Days) = 
+AVERAGEX(
+    'Sales_Fact',
+    DATEDIFF('Sales_Fact'[OrderDate], 'Sales_Fact'[Ship Date], DAY)
+)
+
+Delayed Shipments Count = 
+CALCULATE(
+    [Total Orders],
+    FILTER(
+        'Sales_Fact',
+        DATEDIFF('Sales_Fact'[OrderDate], 'Sales_Fact'[Ship Date], DAY) > 15
+    )
+)
+
+Shipping Delay Rate % = 
+DIVIDE([Delayed Shipments Count], [Total Orders], 0) * 100
+
+
+// --- 3. TIME INTELLIGENCE & YoY TRENDS ---
+
+Revenue LY = 
+CALCULATE(
+    [Total Revenue],
+    SAMEPERIODLASTYEAR('Date_Dim'[Date])
+)
+
+Revenue YoY Growth % = 
+DIVIDE([Total Revenue] - [Revenue LY], [Revenue LY], 0) * 100
+
+Revenue YTD = 
+TOTALYTD([Total Revenue], 'Date_Dim'[Date])
+
+Profit YTD = 
+TOTALYTD([Total Profit], 'Date_Dim'[Date])
+
+
+// --- 4. ADVANCED RANKING & PARETO ANALYSIS ---
+
+Product Revenue Rank = 
+RANKX(
+    ALLSELECTED('Product_Dim'[Product Description Index]),
+    [Total Revenue],
+    ,
+    DESC,
+    Dense
+)
+
+Customer Revenue Rank = 
+RANKX(
+    ALLSELECTED('Customer_Dim'[Customer Name Index]),
+    [Total Revenue],
+    ,
+    DESC,
+    Dense
+)
+
+Cumulative Customer Revenue % = 
+VAR CurrentCustomerSales = [Total Revenue]
+VAR TotalSalesAll = CALCULATE([Total Revenue], ALLSELECTED('Customer_Dim'))
+VAR RankedCustomers = 
+    FILTER(
+        ALLSELECTED('Customer_Dim'),
+        [Total Revenue] >= CurrentCustomerSales
+    )
+RETURN
+    DIVIDE(
+        SUMX(RankedCustomers, [Total Revenue]),
+        TotalSalesAll,
+        0
+    ) * 100
+
+
+// --- 5. CONDITIONAL FORMATTING COLOR CODES ---
+
+Margin Status Color = 
+SWITCH(
+    TRUE(),
+    [Gross Profit Margin %] >= 40, "#10b981", // Emerald
+    [Gross Profit Margin %] >= 25, "#f59e0b", // Amber
+    "#f43f5e"                                // Crimson
+)

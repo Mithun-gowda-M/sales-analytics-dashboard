@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Executive Sales Analytics Dashboard | Power BI Companion</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+  <div class="app-container">
+    <!-- Top Header -->
+    <header class="top-header">
+      <div class="brand">
+        <div class="logo-icon">📊</div>
+        <div>
+          <h1>Global Sales Analytics Executive Dashboard</h1>
+          <p class="subtitle">Multi-Channel Enterprise Performance, Fulfillment, & Profitability Intelligence</p>
+        </div>
+      </div>
+      <div class="controls-bar">
+        <div class="control-group">
+          <label for="channelFilter">Channel Slicer:</label>
+          <select id="channelFilter">
+            <option value="ALL">All Channels</option>
+          </select>
+        </div>
+        <div class="control-group">
+          <label for="currencyFilter">Currency Slicer:</label>
+          <select id="currencyFilter">
+            <option value="ALL">All Currencies</option>
+          </select>
+        </div>
+        <button id="resetBtn" class="btn secondary">Reset Slicers</button>
+      </div>
+    </header>
+
+    <!-- KPI Metric Cards Grid -->
+    <section class="kpi-grid">
+      <div class="kpi-card accent-blue">
+        <div class="kpi-icon">💰</div>
+        <div class="kpi-details">
+          <span class="kpi-label">Total Revenue</span>
+          <span class="kpi-value" id="kpiRevenue">$0</span>
+          <span class="kpi-badge positive">Primary Volume</span>
+        </div>
+      </div>
+      <div class="kpi-card accent-emerald">
+        <div class="kpi-icon">📈</div>
+        <div class="kpi-details">
+          <span class="kpi-label">Total Profit</span>
+          <span class="kpi-value" id="kpiProfit">$0</span>
+          <span class="kpi-badge positive" id="kpiMarginBadge">0% Margin</span>
+        </div>
+      </div>
+      <div class="kpi-card accent-purple">
+        <div class="kpi-icon">📦</div>
+        <div class="kpi-details">
+          <span class="kpi-label">Total Orders</span>
+          <span class="kpi-value" id="kpiOrders">0</span>
+          <span class="kpi-badge neutral" id="kpiAOV">$0 AOV</span>
+        </div>
+      </div>
+      <div class="kpi-card accent-amber">
+        <div class="kpi-icon">⏱️</div>
+        <div class="kpi-details">
+          <span class="kpi-label">Avg Fulfillment Lead Time</span>
+          <span class="kpi-value" id="kpiFulfillment">0 Days</span>
+          <span class="kpi-badge neutral">Order to Delivery</span>
+        </div>
+      </div>
+      <div class="kpi-card accent-rose">
+        <div class="kpi-icon">🏷️</div>
+        <div class="kpi-details">
+          <span class="kpi-label">Units Shipped</span>
+          <span class="kpi-value" id="kpiQuantity">0</span>
+          <span class="kpi-badge neutral">Inventory Movement</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- Main Visuals Grid -->
+    <main class="dashboard-grid">
+      <!-- Sales & Profit Trend -->
+      <div class="card visual-span-2">
+        <div class="card-header">
+          <h2>Sales & Profitability Trends Over Time</h2>
+          <span class="card-tag">Monthly Seasonality</span>
+        </div>
+        <div class="chart-container">
+          <canvas id="trendChart"></canvas>
+        </div>
+      </div>
+
+      <!-- Channel Breakdown -->
+      <div class="card">
+        <div class="card-header">
+          <h2>Channel Share & Revenue</h2>
+          <span class="card-tag">Distribution</span>
+        </div>
+        <div class="chart-container">
+          <canvas id="channelChart"></canvas>
+        </div>
+      </div>
+
+      <!-- Warehouse Fulfillment Efficiency -->
+      <div class="card">
+        <div class="card-header">
+          <h2>Warehouse Fulfillment Lead Times</h2>
+          <span class="card-tag">Logistics SLA</span>
+        </div>
+        <div class="chart-container">
+          <canvas id="warehouseChart"></canvas>
+        </div>
+      </div>
+
+      <!-- Currency Exposure Analysis -->
+      <div class="card">
+        <div class="card-header">
+          <h2>Revenue by Currency</h2>
+          <span class="card-tag">FX Impact</span>
+        </div>
+        <div class="chart-container">
+          <canvas id="currencyChart"></canvas>
+        </div>
+      </div>
+
+      <!-- Delivery Regions -->
+      <div class="card">
+        <div class="card-header">
+          <h2>Top Regional Delivery Zones</h2>
+          <span class="card-tag">Geographic Spread</span>
+        </div>
+        <div class="chart-container">
+          <canvas id="regionChart"></canvas>
+        </div>
+      </div>
+    </main>
+
+    <!-- Product & Customer Intelligence Tables -->
+    <section class="tables-grid">
+      <div class="card">
+        <div class="card-header">
+          <h2>Top Performing Products by Revenue & Margin</h2>
+          <span class="card-tag">SKU Optimization</span>
+        </div>
+        <div class="table-responsive">
+          <table class="data-table" id="productTable">
+            <thead>
+              <tr>
+                <th>Product Index</th>
+                <th>Units Sold</th>
+                <th>Revenue</th>
+                <th>Profit</th>
+                <th>Gross Margin</th>
+              </tr>
+            </thead>
+            <tbody></tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-header">
+          <h2>High-Value Customers (Pareto Contribution)</h2>
+          <span class="card-tag">Tier 1 Accounts</span>
+        </div>
+        <div class="table-responsive">
+          <table class="data-table" id="customerTable">
+            <thead>
+              <tr>
+                <th>Customer ID</th>
+                <th>Orders</th>
+                <th>Total Spend</th>
+                <th>Gross Margin Contrib.</th>
+                <th>Avg Order Value</th>
+              </tr>
+            </thead>
+            <tbody></tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="dashboard-footer">
+      <p>Power BI Mini Project 1 • Engineered with DAX, Power Query M, and High-Performance Analytics Suite</p>
+    </footer>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
