@@ -1,0 +1,23 @@
+{
+  "name": "sales-analytics-dashboard",
+  "version": "1.0.0",
+  "description": "Final Year AIML Engineering Capstone • Predictive Demand Forecasting (OLS), K-Means RFM Segmentation, Power BI Star Schema & Interactive Web Suite",
+  "main": "src/sales_ml_engine.js",
+  "scripts": {
+    "test": "node tests/sales_analytics.test.js",
+    "start": "npx serve dashboard",
+    "build": "node src/sales_ml_engine.js"
+  },
+  "keywords": [
+    "machine-learning",
+    "power-bi",
+    "demand-forecasting",
+    "k-means",
+    "rfm-analysis",
+    "aiml-capstone",
+    "final-year-engineering"
+  ],
+  "author": "Mithun Gowda M <Final Year B.E. / B.Tech in Artificial Intelligence & Machine Learning (AIML)>",
+  "license": "MIT",
+  "homepage": "https://github.com/Mithun-gowda-M/sales-analytics-dashboard"
+}

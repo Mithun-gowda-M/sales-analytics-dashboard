@@ -1,7 +1,8 @@
 /**
- * Automated Test Suite - Sales Analytics Engine
+ * Automated Test Suite - Sales Analytics & Predictive Demand Intelligence
+ * Academic Capstone Submission • Final Year Engineering in AIML
+ * Student: Mithun Gowda M (B.E. / B.Tech AIML)
  */
-
 const assert = require('assert');
 const path = require('path');
 const { processSalesData, parseDate } = require('../src/analytics');

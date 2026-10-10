@@ -1,3 +1,12 @@
+/* ====================================================================
+   ACADEMIC CAPSTONE SUBMISSION • FINAL YEAR ENGINEERING IN AIML
+   Project: Sales Analytics & Predictive Demand Intelligence
+   Author: Mithun Gowda M (Final Year B.E. / B.Tech AIML)
+   Department: Department of Computer Science & Engineering (AIML)
+   File: Power Query M ETL Script Suite
+   Repository: https://github.com/Mithun-gowda-M/sales-analytics-dashboard
+   ==================================================================== */
+
 // ====================================================================
 // POWER QUERY (M) - SALES ANALYTICS ETL SPECIFICATION
 // ====================================================================

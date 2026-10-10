@@ -1,5 +1,12 @@
-# Sales Analytics Dashboard - Power BI Implementation Guide
+# Sales Analytics & Predictive Demand Intelligence - Power BI Implementation Guide
 
+> **Academic Capstone Submission • Final Year Engineering in AIML**  
+> **Student Name**: Mithun Gowda M  
+> **Program**: B.E. / B.Tech in Artificial Intelligence & Machine Learning (AIML)  
+> **Department**: Department of Computer Science & Engineering (AIML)  
+> **Repository**: [https://github.com/Mithun-gowda-M/sales-analytics-dashboard](https://github.com/Mithun-gowda-M/sales-analytics-dashboard)  
+
+---
 ## 1. Overview
 This guide provides complete instructions to assemble the Sales Analytics Dashboard in Power BI Desktop according to the mini project requirements.
 
@@ -56,3 +63,9 @@ This guide provides complete instructions to assemble the Sales Analytics Dashbo
 
 ## 4. DAX Measures
 All production-ready DAX formulas are located in [measures.dax](measures.dax).
+
+
+### 5. AIML Integration in Power BI
+- **OLS Demand Forecast Table**: Ingest 6-month projected orders and 95% confidence bounds into a separate fact table.
+- **K-Means RFM Clusters**: Import customer cluster labels (`Champions`, `Loyal`, `At Risk`, `Hibernating`) into `Customer_Dim` for cross-dimensional filtering.
+- **Python/R Visual in Power BI Desktop**: Render the OLS regression slope and cluster centroids directly in canvas using the Python script editor.
