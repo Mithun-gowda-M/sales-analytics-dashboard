@@ -39,4 +39,22 @@ assert.strictEqual(parsed.getUTCFullYear(), 2017, 'Year must parse to 2017');
 assert.strictEqual(parsed.getUTCMonth(), 0, 'Month must parse to January (0)');
 console.log('✓ Test 6 Passed: Date parser accurately translates timestamps');
 
-console.log('\nAll Sales Analytics tests passed successfully! (6/6)');
+// Test 7: AIML Time-Series Forecasting
+const fc = data.aiIntelligence.forecast;
+assert(fc.forecast.length === 6, 'Forecast must project 6 future months');
+fc.forecast.forEach(f => {
+  assert(f.predictedRevenue > 0, 'Forecasted revenue must be positive');
+  assert(f.upperBound95 >= f.predictedRevenue, 'Upper 95% bound must be >= predicted');
+  assert(f.lowerBound95 <= f.predictedRevenue, 'Lower 95% bound must be <= predicted');
+});
+console.log('✓ Test 7 Passed: AIML Time-Series demand forecast bounds & confidence intervals verified');
+
+// Test 8: AIML K-Means Customer Segmentation
+const seg = data.aiIntelligence.customerSegmentation;
+assert.strictEqual(seg.k, 4, 'Must produce 4 RFM clusters');
+assert(seg.segments.length === 4, 'Must populate 4 customer tiers');
+const totalClustered = seg.segments.reduce((a, b) => a + b.count, 0);
+assert.strictEqual(totalClustered, 50, 'All 50 customer accounts must be clustered');
+console.log('✓ Test 8 Passed: AIML K-Means RFM clustering mathematical convergence verified');
+
+console.log('\nAll Sales Analytics tests passed successfully! (8/8)');

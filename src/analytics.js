@@ -207,6 +207,11 @@ function processSalesData(csvPath) {
     avgOrderValue: Number((d.revenue / d.orders).toFixed(2))
   })).sort((a, b) => b.revenue - a.revenue);
 
+  // AIML Integration: Time Series Forecast & K-Means RFM Segmentation
+  const { forecastSales, kMeansRFM } = require('./sales_ml_engine');
+  const mlForecast = forecastSales(monthlyMap, 6);
+  const mlSegmentation = kMeansRFM(cleanRecords, 4);
+
   return {
     kpis: {
       totalOrders: orderCount,
@@ -217,6 +222,10 @@ function processSalesData(csvPath) {
       totalQuantity,
       avgOrderValue: Number(avgOrderValue.toFixed(2)),
       avgFulfillmentDays: Number(avgFulfillment.toFixed(1))
+    },
+    aiIntelligence: {
+      forecast: mlForecast,
+      customerSegmentation: mlSegmentation
     },
     channels: channelMap,
     warehouses: warehouseStats,

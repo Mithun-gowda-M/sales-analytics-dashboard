@@ -9,6 +9,92 @@
     "avgOrderValue": 19343.4,
     "avgFulfillmentDays": 10.4
   },
+  "aiIntelligence": {
+    "forecast": {
+      "trendSlopeMonthly": -12904.41,
+      "standardError": 639592.04,
+      "forecast": [
+        {
+          "month": "2020-01",
+          "predictedRevenue": 4054966.82,
+          "upperBound95": 5308567.23,
+          "lowerBound95": 2801366.42
+        },
+        {
+          "month": "2020-02",
+          "predictedRevenue": 4042062.41,
+          "upperBound95": 5295662.82,
+          "lowerBound95": 2788462.01
+        },
+        {
+          "month": "2020-03",
+          "predictedRevenue": 4029158.01,
+          "upperBound95": 5282758.41,
+          "lowerBound95": 2775557.6
+        },
+        {
+          "month": "2020-04",
+          "predictedRevenue": 4016253.6,
+          "upperBound95": 5269854.01,
+          "lowerBound95": 2762653.2
+        },
+        {
+          "month": "2020-05",
+          "predictedRevenue": 4003349.19,
+          "upperBound95": 5256949.6,
+          "lowerBound95": 2749748.79
+        },
+        {
+          "month": "2020-06",
+          "predictedRevenue": 3990444.79,
+          "upperBound95": 5244045.19,
+          "lowerBound95": 2736844.38
+        }
+      ]
+    },
+    "customerSegmentation": {
+      "k": 4,
+      "totalSegmentedCustomers": 50,
+      "segments": [
+        {
+          "clusterId": 1,
+          "count": 9,
+          "avgRecency": 392.7,
+          "avgFrequency": 180.4,
+          "avgSpend": 3648432.14,
+          "totalSpend": 32835889.3,
+          "segmentName": "Tier 1 Champions (High Value)"
+        },
+        {
+          "clusterId": 0,
+          "count": 13,
+          "avgRecency": 390.7,
+          "avgFrequency": 164,
+          "avgSpend": 3226530.34,
+          "totalSpend": 41944894.4,
+          "segmentName": "Tier 2 Loyal Regulars"
+        },
+        {
+          "clusterId": 3,
+          "count": 17,
+          "avgRecency": 392.4,
+          "avgFrequency": 155.9,
+          "avgSpend": 2931730.82,
+          "totalSpend": 49839424,
+          "segmentName": "Tier 3 Emerging Potential"
+        },
+        {
+          "clusterId": 2,
+          "count": 11,
+          "avgRecency": 393.5,
+          "avgFrequency": 144,
+          "avgSpend": 2722993.9,
+          "totalSpend": 29952932.9,
+          "segmentName": "Tier 4 At-Risk / Hibernating"
+        }
+      ]
+    }
+  },
   "channels": {
     "Wholesale": {
       "revenue": 82966575.70000006,

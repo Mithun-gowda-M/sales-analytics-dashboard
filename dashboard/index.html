@@ -17,8 +17,8 @@
       <div class="brand">
         <div class="logo-icon">📊</div>
         <div>
-          <h1>Global Sales Analytics Executive Dashboard</h1>
-          <p class="subtitle">Multi-Channel Enterprise Performance, Fulfillment, & Profitability Intelligence</p>
+          <h1>Sales Analytics Dashboard</h1>
+          <p class="subtitle">2nd Year Engineering Mini Project • Submitted by Mithun Gowda M • Power BI & Web Analytics Companion</p>
         </div>
       </div>
       <div class="controls-bar">
@@ -140,6 +140,38 @@
       </div>
     </main>
 
+    <!-- AI & Machine Learning Predictive Section (Final Year AIML Showcase) -->
+    <section class="card ai-section">
+      <div class="card-header">
+        <div style="display: flex; align-items: center; gap: 10px;">
+          <span style="font-size: 22px;">🤖</span>
+          <div>
+            <h2 style="color: #60a5fa;">AIML Predictive Intelligence: 6-Month Demand Forecast & K-Means RFM Segmentation</h2>
+            <p style="font-size: 12px; color: var(--text-muted); margin-top: 2px;">Linear Trend Decomposition • 95% Confidence Intervals • Unsupervised Customer Clustering</p>
+          </div>
+        </div>
+        <span class="card-tag" style="background: rgba(59, 130, 246, 0.2); color: #93c5fd; border: 1px solid rgba(59, 130, 246, 0.3);">AIML Capstone</span>
+      </div>
+
+      <div class="ai-grid" style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
+        <!-- AI Forecast Chart -->
+        <div>
+          <h3 style="font-size: 13px; color: var(--text-main); margin-bottom: 12px;">📈 Time-Series Predictive Sales Horizon (Next 6 Months)</h3>
+          <div class="chart-container" style="height: 250px;">
+            <canvas id="forecastChart"></canvas>
+          </div>
+        </div>
+
+        <!-- K-Means RFM Segmentation Chart -->
+        <div>
+          <h3 style="font-size: 13px; color: var(--text-main); margin-bottom: 12px;">🎯 Unsupervised K-Means RFM Customer Clusters (k=4)</h3>
+          <div class="chart-container" style="height: 250px;">
+            <canvas id="segmentationChart"></canvas>
+          </div>
+        </div>
+      </div>
+    </section>
+
     <!-- Product & Customer Intelligence Tables -->
     <section class="tables-grid">
       <div class="card">
@@ -187,10 +219,11 @@
 
     <!-- Footer -->
     <footer class="dashboard-footer">
-      <p>Power BI Mini Project 1 • Engineered with DAX, Power Query M, and High-Performance Analytics Suite</p>
+      <p>Power BI Mini Project 1 • Developed by Mithun Gowda M (2nd Year Engineering) • DAX, Power Query M, & Analytics Suite</p>
     </footer>
   </div>
 
+  <script src="data.js"></script>
   <script src="app.js"></script>
 </body>
 </html>

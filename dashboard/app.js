@@ -7,15 +7,116 @@ let charts = {};
 
 async function init() {
   try {
-    const res = await fetch('sales_summary.json');
-    salesData = await res.json();
+    if (window.SALES_SUMMARY) {
+      salesData = window.SALES_SUMMARY;
+    } else {
+      const res = await fetch('sales_summary.json');
+      salesData = await res.json();
+    }
     setupFilters();
     renderKPIs(salesData.kpis);
     renderCharts(salesData);
+    renderAICharts(salesData.aiIntelligence);
     renderTables(salesData);
     attachEventListeners();
   } catch (err) {
     console.error('Failed to load sales data:', err);
+  }
+}
+
+function renderAICharts(ai) {
+  if (!ai) return;
+
+  // 1. Forecast Chart
+  const fc = ai.forecast.forecast;
+  const fcLabels = fc.map(f => f.month);
+  const fcPred = fc.map(f => f.predictedRevenue);
+  const fcUpper = fc.map(f => f.upperBound95);
+  const fcLower = fc.map(f => f.lowerBound95);
+
+  const ctxFc = document.getElementById('forecastChart')?.getContext('2d');
+  if (ctxFc) {
+    charts.forecast = new Chart(ctxFc, {
+      type: 'line',
+      data: {
+        labels: fcLabels,
+        datasets: [
+          {
+            label: 'Predicted Sales ($)',
+            data: fcPred,
+            borderColor: '#3b82f6',
+            backgroundColor: 'rgba(59, 130, 246, 0.2)',
+            borderWidth: 2.5,
+            pointRadius: 4
+          },
+          {
+            label: 'Upper 95% Bound',
+            data: fcUpper,
+            borderColor: 'rgba(148, 163, 184, 0.5)',
+            borderDash: [5, 5],
+            borderWidth: 1.5,
+            pointRadius: 0
+          },
+          {
+            label: 'Lower 95% Bound',
+            data: fcLower,
+            borderColor: 'rgba(148, 163, 184, 0.5)',
+            borderDash: [5, 5],
+            borderWidth: 1.5,
+            pointRadius: 0
+          }
+        ]
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        plugins: { legend: { labels: { color: '#94a3b8' } } },
+        scales: {
+          x: { grid: { color: 'rgba(255, 255, 255, 0.05)' }, ticks: { color: '#94a3b8' } },
+          y: { grid: { color: 'rgba(255, 255, 255, 0.05)' }, ticks: { color: '#94a3b8', callback: v => formatCurrency(v) } }
+        }
+      }
+    });
+  }
+
+  // 2. K-Means Segmentation Chart
+  const segs = ai.customerSegmentation.segments;
+  const segLabels = segs.map(s => s.segmentName.split(' (')[0]);
+  const segCounts = segs.map(s => s.count);
+  const segSpends = segs.map(s => s.avgSpend);
+
+  const ctxSeg = document.getElementById('segmentationChart')?.getContext('2d');
+  if (ctxSeg) {
+    charts.segmentation = new Chart(ctxSeg, {
+      type: 'bar',
+      data: {
+        labels: segLabels,
+        datasets: [
+          {
+            label: 'Customer Count',
+            data: segCounts,
+            backgroundColor: ['#3b82f6', '#10b981', '#f59e0b', '#f43f5e'],
+            borderRadius: 6
+          }
+        ]
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        plugins: {
+          legend: { display: false },
+          tooltip: {
+            callbacks: {
+              afterLabel: (ctx) => `Avg Spend: ${formatCurrency(segs[ctx.dataIndex].avgSpend)} | Avg Recency: ${segs[ctx.dataIndex].avgRecency}d`
+            }
+          }
+        },
+        scales: {
+          x: { grid: { display: false }, ticks: { color: '#94a3b8' } },
+          y: { grid: { color: 'rgba(255, 255, 255, 0.05)' }, ticks: { color: '#94a3b8' }, title: { display: true, text: 'Accounts', color: '#64748b' } }
+        }
+      }
+    });
   }
 }
 
